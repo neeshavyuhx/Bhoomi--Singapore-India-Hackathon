@@ -1,0 +1,209 @@
+Add a new AI Chat screen to the app with the following 
+complete specification. Do NOT change any existing screens 
+or navigation. Only ADD new things.
+
+════════════════════════════════════════
+STEP 1: FLOATING BUTTON (Add to every screen)
+════════════════════════════════════════
+
+Add a floating action button on ALL main screens 
+(Home, Zones, Analytics, Alerts, Settings).
+
+Position: bottom right, above the bottom tab bar
+Style:
+- Circle button, size 56x56
+- Background: #1B5E20
+- Shadow: elevation 8
+- Icon: <MaterialCommunityIcons name="robot" size={28} color="#FFFFFF" />
+
+On press → navigate to AIChatScreen
+
+════════════════════════════════════════
+STEP 2: CREATE AIChatScreen.jsx
+════════════════════════════════════════
+
+File location: same folder as other screens
+
+Full screen layout — 3 parts:
+
+─── PART A: HEADER ───
+- Background color: #1B5E20
+- Left: back arrow button → <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+- Center: 
+    Line 1: "AI सहाय्यक" (white, bold, 18px)
+    Line 2: "भूमी स्मार्ट असिस्टंट" (light green, 12px)
+- Right: robot icon <MaterialCommunityIcons name="robot" size={28} color="#4CAF50" />
+- Below header: thin green strip with text:
+  "🌱 शेतीविषयी कोणताही प्रश्न विचारा"
+  Background: #E8F5E9, text color: #2E7D32, 
+  font size 12, center aligned, padding 6
+
+─── PART B: CHAT AREA ───
+- Background: #F5F5F0
+- ScrollView, auto scroll to bottom on new message
+- Start with 3 dummy welcome messages already shown:
+
+Message 1 — AI (left side):
+  Avatar: green circle with robot icon
+  Bubble: white background, #1C1C1C text
+  Text: "नमस्कार रमेश जी! मी भूमी AI आहे. 
+  तुमच्या शेताविषयी कोणताही प्रश्न विचारा. 
+  मी मराठी, हिंदी आणि English मध्ये 
+  उत्तर देऊ शकतो. 🌾"
+  Time: "9:00 AM"
+
+Message 2 — User (right side):
+  Bubble: #1B5E20 background, white text
+  Text: "Zone D मध्ये पाणी किती द्यावे?"
+  Time: "9:01 AM"
+
+Message 3 — AI (left side):
+  Text: "Zone D मध्ये टोमॅटो पीक आहे. 
+  सध्या moisture 19% आहे जे critical आहे. 
+  आत्ता 390 लिटर पाणी द्या. 
+  गुरुवारी पाऊस अपेक्षित असल्याने 
+  शुक्रवारी पुन्हा तपासा. 🍅💧"
+  Time: "9:01 AM"
+
+Chat bubble styles:
+  AI bubble:
+  - Background: #FFFFFF
+  - Border radius: 4 top-left, 16 others
+  - Shadow: light
+  - Max width: 75% of screen
+  - Padding: 12
+  - Text color: #1C1C1C, size 14
+
+  User bubble:
+  - Background: #1B5E20
+  - Border radius: 16, 4 top-right, 16, 16
+  - Max width: 75% of screen
+  - Padding: 12
+  - Text color: #FFFFFF, size 14
+
+  Timestamp: #9E9E9E, size 10, below bubble
+
+  AI avatar: 
+  - Circle 32x32, background #E8F5E9
+  - <MaterialCommunityIcons name="robot" 
+    size={18} color="#1B5E20" />
+  - Show only on AI messages, left side
+
+─── PART C: INPUT AREA ───
+Background: #FFFFFF
+Border top: 1px #BDBDBD
+Padding: 12
+Height: auto (grows with text)
+
+Layout — horizontal row:
+[ Text Input ] [ Mic Button ] [ Send Button ]
+
+Text Input:
+- Flex: 1
+- Background: #F5F5F0
+- Border radius: 24
+- Border: 1px #BDBDBD
+- Padding: 10 horizontal, 8 vertical
+- Placeholder: "प्रश्न टाइप करा..."
+- Placeholder color: #9E9E9E
+- Font size: 14
+- Multiline: true
+- Max height: 100
+
+Mic Button:
+- Circle 44x44
+- Background: #E8F5E9
+- Margin horizontal: 8
+- Icon: <Ionicons name="mic" size={22} color="#1B5E20" />
+- On press: show "🎤 ऐकत आहे..." text 
+  above input bar for 2 seconds
+  then auto-type this dummy text in input:
+  "उद्या सकाळी Zone B ला पाणी द्यावे का?"
+
+Send Button:
+- Circle 44x44
+- Background: #1B5E20 (grey #BDBDBD when input empty)
+- Icon: <Ionicons name="send" size={20} color="#FFFFFF" />
+- Disabled when input is empty
+
+════════════════════════════════════════
+STEP 3: SEND MESSAGE LOGIC
+════════════════════════════════════════
+
+When user types and presses send:
+1. Show user message immediately (right side)
+2. Show typing indicator for 1.5 seconds:
+   AI bubble with 3 animated dots (. . .)
+   Same white bubble style as AI messages
+3. After 1.5s, replace typing with dummy AI reply
+
+Dummy AI replies (cycle through these):
+Reply 1: "हे खूप चांगला प्रश्न आहे! 
+तुमच्या शेताच्या सद्य परिस्थितीनुसार 
+मी शिफारस करतो की आधी Zone D ला 
+प्राधान्य द्या कारण moisture critical आहे. 💧"
+
+Reply 2: "हवामान अंदाजानुसार गुरुवारी 
+पाऊस येणार आहे. त्यामुळे बुधवारी 
+सर्व zones ची irrigation पूर्ण करा. 
+Zone A आणि B ला 50% कमी पाणी द्या. 🌧️"
+
+Reply 3: "NPK विश्लेषणानुसार Zone A मध्ये 
+Nitrogen (N) कमी आहे. 
+प्रति एकर 25 किलो Urea टाका. 
+Zone D मध्ये सर्व nutrients कमी आहेत — 
+संपूर्ण fertigation plan लागेल. 🌱"
+
+Reply 4: "Solar panel सध्या 2.1 kW 
+generate करत आहे. Battery 78% आहे. 
+दुपारी 2:30 पर्यंत पूर्ण charge होईल. 
+आत्ता irrigation चालू करणे योग्य आहे 
+कारण solar power उपलब्ध आहे. ☀️"
+
+════════════════════════════════════════
+STEP 4: QUICK SUGGESTION CHIPS
+════════════════════════════════════════
+
+Show 4 suggestion chips ABOVE the input bar.
+Only show when chat is at welcome state (no user messages yet).
+Hide after first user message.
+
+Chip style:
+- Background: #FFFFFF
+- Border: 1.5px #1B5E20
+- Border radius: 20
+- Padding: 6 horizontal 12
+- Text color: #1B5E20
+- Font size: 12
+- Horizontal ScrollView
+
+4 chips:
+1. "💧 पाणी किती द्यावे?"
+2. "🌱 खत कधी घालावे?"
+3. "☀️ Solar स्थिती"
+4. "🌧️ पावसाचा अंदाज"
+
+On chip press → auto-fill that text in input box
+
+════════════════════════════════════════
+COLORS REFERENCE
+════════════════════════════════════════
+Primary Green: #1B5E20
+Medium Green: #2E7D32
+Light Green: #4CAF50
+Pale Green: #E8F5E9
+Background: #F5F5F0
+White: #FFFFFF
+Border: #BDBDBD
+Text Primary: #1C1C1C
+Text Secondary: #616161
+Text Hint: #9E9E9E
+════════════════════════════════════════
+
+IMPORTANT RULES:
+- Do NOT modify any existing screen
+- Do NOT change navigation structure
+- Only create AIChatScreen and add floating button
+- Use only Ionicons and MaterialCommunityIcons
+- No emoji as icons, only as text inside strings
+- Match exact colors given above

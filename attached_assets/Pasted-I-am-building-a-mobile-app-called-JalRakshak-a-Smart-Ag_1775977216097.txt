@@ -1,0 +1,181 @@
+I am building a mobile app called JalRakshak (जलरक्षक) — a Smart Agriculture System for farmers in Maharashtra, India.
+
+Tech Stack (Frontend Only):
+- React Native + Expo
+- NativeWind (Tailwind for React Native)
+- Zustand (state management)
+- Axios + React Query (API ready but using dummy data for now)
+- React Navigation (Stack + Bottom Tabs)
+- i18next (Marathi / Hindi / English)
+- Expo Vector Icons
+
+No backend. No database. Use only dummy/mock data for now.
+
+App Colors:
+- Primary green: #0F6E56
+- Light green: #1D9E75
+- Dark green: #085041
+- Background: #F1EFE8
+- White: #FFFFFF
+- Warning amber: #FAEEDA, #EF9F27
+- Danger red: #FCEBEB, #E24B4A
+- Info blue: #E6F1FB, #378ADD
+
+Dummy Data to use throughout the app:
+Farmer name: रमेश शिंदे
+Village: Vadale, Pune
+Farm area: 4 Acre
+Language: Marathi (default)
+
+4 Zones:
+- Zone A: Wheat (गहू), moisture 68%, valve ON, status good, needed 320L, given 320L
+- Zone B: Sugarcane (उस), moisture 28%, valve OFF, status warning, needed 450L, given 0L
+- Zone C: Onion (कांदा), moisture 55%, valve ON, status good, needed 280L, given 190L
+- Zone D: Tomato (टोमॅटो), moisture 19%, valve OFF, status critical, needed 390L, given 30L
+
+Stats:
+- Water used today: 1240L
+- Water saved: 24%
+- Battery: 78%
+- Solar generating: 2.1 kW
+- Alert count: 4
+
+Alerts:
+1. Critical - Zone D moisture 19% - आत्ता
+2. Warning - Fertilizer needed Zone A - 9:28 AM
+3. Info - Rain forecast Thursday - 9:00 AM
+4. Success - Zone A irrigation complete - 8:55 AM
+
+NPK Data per zone:
+- Zone A: N=18 (low), P=42 (good), K=38 (good), pH=6.8
+- Zone B: N=35 (good), P=68 (high), K=44 (good), pH=7.2
+- Zone C: N=28 (good), P=36 (good), K=22 (low), pH=6.5
+- Zone D: N=12 (low), P=20 (low), K=18 (low), pH=6.2
+
+Weather:
+- Today: 29°C Sunny
+- Tomorrow: 31°C Sunny
+- Wednesday: 28°C Cloudy
+- Thursday: Rain expected - irrigation will be skipped
+- Friday: 27°C Partly cloudy
+
+Solar:
+- Panel capacity: 2.4 kW
+- Currently generating: 2.1 kW
+- Battery: 78%
+- Est full charge: 2:30 PM
+- Today generated: 14.2 kWh
+
+Crop growth stages:
+- Zone A Wheat: Tillering stage, 62 days to harvest, health 87/100
+- Zone B Sugarcane: Grand growth stage, 180 days to harvest, health 72/100
+- Zone C Onion: Bulb formation stage, 45 days to harvest, health 91/100
+- Zone D Tomato: Flowering stage, 38 days to harvest, health 58/100
+
+Screens to build (all 11):
+
+1. Splash Screen
+- Full screen green background #0F6E56
+- App name JalRakshak in white large text
+- जलरक्षक in light green below
+- Tagline: Smart Irrigation · AI · Solar
+- 3 stat tiles: 4 Zones, AI Powered, Solar Energy
+- Auto navigate to Login after 2.5 seconds
+
+2. Login Screen
+- Green header with welcome text in Marathi
+- Mobile number input with +91 prefix
+- 4 box OTP input (large boxes easy to tap)
+- Language selector: मराठी / हिंदी / English (3 big buttons)
+- Verify button in green
+- Resend OTP timer
+- Skip button for development
+
+3. Home Dashboard
+- Green header with farmer name and farm details
+- Weather strip showing today weather
+- AI advisory card in light green
+- 4 KPI tiles: Water Used, Saved %, Battery, Alerts
+- 4 zone cards in 2x2 grid (color coded)
+- 4 quick action buttons: Irrigation, Fertigation, Solar, Alerts
+- AI chat bubble at bottom
+
+4. Zone Farm Map Screen
+- Visual 2x2 zone map with colors
+- Each zone shows crop name, moisture %, valve status
+- Open/Close valve button per zone
+- Zone detail cards below map
+- Sensor readings per zone
+
+5. Irrigation Control Screen
+- Auto mode / Manual mode toggle (2 big cards)
+- Per zone valve toggle with progress bar
+- Water given vs needed per zone
+- Voice command section with mic button
+- Emergency open button for critical zones
+
+6. Fertigation Screen
+- Zone filter chips at top
+- NPK display in colored tiles (N=green, P=blue, K=amber)
+- pH and EC values
+- AI fertilizer plan list per zone
+- Fertilizer name, quantity, urgency pill
+- Start Auto Fertigation button
+
+7. Solar Energy Dashboard
+- 4 KPI tiles: Generating, Battery %, Today kWh, Usage
+- Battery visual indicator
+- Energy aware irrigation message card
+- Solar generation line chart (6AM to 6PM)
+- Panel status
+
+8. Water Analytics Screen
+- 4 KPI tiles: Today L, Saved %, Week Total, Saved Today
+- Weekly bar chart (7 days)
+- Zone wise progress bars for today
+- AI prediction card for next 7 days
+
+9. Crop Details Screen
+- Crop filter chips: Wheat, Sugarcane, Onion, Tomato
+- Crop icon and details card
+- Growth stage progress bar (7 stages)
+- 4 metric tiles: Water Needed, Days to Harvest, Yield Forecast, Health Score
+- AI advisory bubble
+- Weekly water schedule table
+
+10. Alerts Screen
+- Filter chips: All, Irrigation, Fertilizer, Fault, Weather
+- Alert list with color coded icons
+- Each alert: icon, title, description, time, read/unread
+- Fault detection section at bottom
+- Mark as read on tap
+
+11. Settings Screen
+- Farmer profile card with initials
+- Language switcher 3 big tiles (मराठी active by default)
+- Notification toggles for each alert type
+- Farm name, crop config, sensor calibration rows
+- Help, Contact Support, Logout rows
+
+Additional requirements:
+- Marathi text throughout all screens by default
+- Color coding: green=good, amber=warning, red=critical, blue=info
+- All valve toggles must work using Zustand state
+- Language switch must change all text instantly
+- Bottom tab navigation: Home, Zones, Analytics, Alerts, Settings
+- Stack navigation for Splash and Login
+- Smooth navigation between all screens
+- Simple icons for low literacy farmers
+- Offline friendly — all dummy data loads instantly
+- No API calls for now — everything from Zustand store
+
+Folder structure:
+src/
+  screens/ (all 11 screens)
+  components/ (ZoneCard, ValveToggle, StatCard, AlertRow, AIBubble, MoistureBar)
+  navigation/ (AppNavigator)
+  store/ (useStore.js with all dummy data)
+  constants/ (colors.js)
+  i18n/ (index.js + translations/mr.json, hi.json, en.json)
+
+Please build the complete working app with all screens, all components, full Zustand store with dummy data, complete navigation, i18n setup, and all UI exactly matching the design described above.

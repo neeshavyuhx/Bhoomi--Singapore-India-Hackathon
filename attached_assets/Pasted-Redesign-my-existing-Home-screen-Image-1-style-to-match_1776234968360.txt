@@ -1,0 +1,61 @@
+Redesign my existing Home screen (Image 1 style) to match the new design (Image 2 style). Keep ALL existing functionality working. Here are the exact changes needed:
+
+HEADER SECTION:
+- Background: Dark green (#1a5c2a)
+- Show "नमस्कार, [UserName] 🌱" in Marathi as main greeting
+- Below: "Vadale Farm · 4 Zones · 4 Acre" in smaller white text
+- Top right: Bell icon with notification badge
+- Second row: Green pill showing "29°C · Sunny" on left, "Rain: Thu · No alert today" on right
+
+AI ADVISORY BANNER:
+- Light green background card
+- Start with "AI:" in bold
+- Show Marathi text: "आज सिंचन सुरू करा Zone B आणि D साठी"
+- Below: "Moisture below 30% · Tap to view plan" in smaller text
+- Make it tappable - navigates to Analytics tab
+
+STATS ROW (4 cards):
+- "1.2k L Used" 
+- "24% Saved"
+- "78% Battery"
+- "2 Alerts"
+- Style: Small white cards with colored numbers, no icons, compact
+
+FIELD ZONES SECTION:
+- Title: "FIELD ZONES" in bold caps
+- Show 4 zones in a 2x2 grid layout (not list)
+- Zone A - Wheat: moisture 68%, Valve ON, green border
+- Zone B - Sugarcane: moisture 28%, Valve OFF, orange border  
+- Zone C - Onion: moisture 55%, Valve ON, green border
+- Zone D - Tomato: moisture 19%, CRITICAL - Alert sent, red border
+- Each zone card shows: Zone name, crop name, moisture %, valve status, colored progress bar
+- All zone cards are tappable and navigate to Zones tab
+
+QUICK ACTIONS SECTION:
+- Title: "QUICK ACTIONS" in bold caps
+- 2x2 grid of large colorful buttons (NOT 4 in a row)
+- Button 1: Dark green background - "सिंचन · Irrigation" with water drop icon
+- Button 2: Dark blue background - "खत · Fertigation" with chart icon  
+- Button 3: Orange/yellow background - "Solar Energy" with sun icon
+- Button 4: Dark gray background - "सूचना · Alerts" with bell icon
+- All buttons fully functional, navigate to correct tabs
+
+AI ADVISOR BOTTOM CARD:
+- White card at bottom
+- Text: "AI Advisor: Zone D (Tomato) ला आता 390 लीटर पाणी द्या. मी valve आपोआप उघडत आहे."
+- Subtle green left border accent
+
+BOTTOM NAVIGATION:
+- 5 tabs: Home, Zones, Analytics, Alerts, Profile
+- Icons + labels
+- Active tab highlighted in green
+- All tabs functional
+
+GENERAL STYLING:
+- Background: Light gray (#f5f5f5)
+- Font: Use system default
+- Rounded cards with subtle shadows
+- Remove "Made with Replit" badge
+- Keep all existing data, state management, and navigation logic working
+- Do not break any existing functionality
+- Make sure all buttons navigate to their correct screens

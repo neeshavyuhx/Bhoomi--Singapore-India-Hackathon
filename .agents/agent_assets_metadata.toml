@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "SJfMAoTdNIpitborCWemg"
+uri = "file://artifacts/bhoomi/assets/images/icon.png"
+type = "image"
+title = "bhoomi app icon"

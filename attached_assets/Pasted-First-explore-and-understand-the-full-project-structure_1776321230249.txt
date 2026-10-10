@@ -1,0 +1,53 @@
+First, explore and understand the full project structure:
+- Find the root layout file (App.js / App.tsx / _layout.tsx or similar)
+- Find the main navigation container/wrapper
+- Find how SafeAreaView or padding is being applied globally
+- Check if there is any global stylesheet or theme file
+- Find the bottom tab navigator component
+- List all screen/page components
+
+THE PROBLEM:
+The app content is getting hidden behind:
+1. The top status bar (time, battery, signal icons) - content is going under it
+2. The bottom navigation bar (Android home/back buttons or iPhone home indicator) 
+   - bottom tab bar is getting cut off or hidden behind device navigation
+
+This is happening on ALL screens/pages of the app.
+
+THE FIX NEEDED:
+Apply safe area insets globally so ALL screens respect the device's safe area.
+
+Make these changes:
+
+STEP 1 - Install safe area library if not already installed:
+- Check if 'react-native-safe-area-context' is already in package.json
+- If not, install it: expo install react-native-safe-area-context
+
+STEP 2 - Wrap the root app with SafeAreaProvider:
+- In the root file (App.js or _layout.tsx), wrap everything inside <SafeAreaProvider>
+- Import: import { SafeAreaProvider } from 'react-native-safe-area-context'
+
+STEP 3 - Fix the top status bar on all screens:
+- In the root layout or navigation container, add:
+  import { useSafeAreaInsets } from 'react-native-safe-area-context'
+- Apply top inset padding to the main content wrapper globally
+- OR use <SafeAreaView edges={['top']}> in the root layout
+
+STEP 4 - Fix the bottom navigation bar:
+- Find the bottom tab navigator
+- Add safeAreaInsets or style paddingBottom to account for device bottom bar
+- For Expo Router: add tabBarStyle: { paddingBottom: insets.bottom } in screenOptions
+- For React Navigation: same approach in tabBarStyle
+
+STEP 5 - Make sure this applies to ALL pages:
+- Do NOT add SafeAreaView individually to each screen
+- Fix it ONCE at the root/navigation level so every screen automatically gets correct spacing
+- Check that the header, content area, and bottom tabs are all fully visible on screen
+
+Target result:
+- Top status bar (time/battery) should be ABOVE the app header, not overlapping it
+- Bottom tab bar (Home, Zones, Analytics, AI, Settings) should be fully visible 
+  above the device home indicator/navigation bar
+- No content should be hidden behind device UI on any screen
+
+Show me which files you will edit before making any changes.

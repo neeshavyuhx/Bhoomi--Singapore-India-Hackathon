@@ -1,0 +1,59 @@
+PERFORMANCE OPTIMIZATION RULES - STRICTLY FOLLOW:
+
+1. LAZY LOADING: Use React.lazy() + Suspense for all screens except 
+   Splash and Login. Load screens only when navigated to.
+
+2. SPLIT IMPORTS: Never import entire libraries. Use named imports only:
+   BAD:  import * as Icons from '@expo/vector-icons'
+   GOOD: import { Ionicons } from '@expo/vector-icons'
+
+3. SPLASH SCREEN: Use expo-splash-screen package to hide native splash 
+   until JS bundle is ready. Show native splash INSTANTLY, then 
+   transition to JS splash screen. No white flash.
+
+4. FONTS: Preload fonts in App.js using useFonts() hook BEFORE 
+   rendering anything. Keep SplashScreen visible until fonts load.
+
+5. DUMMY DATA: All dummy/mock data must be in a single separate file 
+   /src/data/mockData.js — never inline in components. Import only 
+   what each screen needs.
+
+6. STATE: Initialize Zustand stores lazily. Don't compute derived 
+   state on app start.
+
+7. IMAGES/ICONS: Use only vector icons (Ionicons/MaterialIcons). 
+   Zero image files. No PNG/JPG assets that need loading.
+
+8. NAVIGATION: Use @react-navigation/native-stack (not stack) — 
+   it uses native animations and is 3x faster.
+
+9. APP.JS structure must be:
+   - Load fonts + hide splash (parallel)
+   - Show native splash during load
+   - Navigate to Splash screen (2.5s auto-nav)
+   - Then Login
+
+10. Keep each screen component under 200 lines. Split into smaller 
+    sub-components in /src/components/screens/ folder.
+
+Example App.js structure:
+----
+import * as SplashScreen from 'expo-splash-screen';
+SplashScreen.preventAutoHideAsync(); // Call immediately at top
+
+export default function App() {
+  const [appReady, setAppReady] = useState(false);
+  
+  useEffect(() => {
+    async function prepare() {
+      await Font.loadAsync({ ... }); // load fonts
+      setAppReady(true);
+      await SplashScreen.hideAsync(); // hide native splash
+    }
+    prepare();
+  }, []);
+  
+  if (!appReady) return null; // native splash stays visible
+  return <NavigationContainer>...</NavigationContainer>;
+}
+----

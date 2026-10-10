@@ -1,0 +1,52 @@
+App Name: Bhoomi (भूमी)
+Meaning = Earth / Soil — perfect for an agriculture app.
+
+Color Palette
+Primary Colors
+NameHexUsed ForPrimary Green#1B5E20Header, buttons, nav activeMedium Green#2E7D32Cards border, iconsLight Green#4CAF50Success states, good moisturePale Green#E8F5E9Good zone background
+Status Colors
+NameHexUsed ForWarning Amber#FF8F00Low moisture warningPale Amber#FFF8E1Warning zone backgroundDanger Red#C62828Critical moisture, faultsPale Red#FFEBEECritical zone backgroundInfo Blue#1565C0Info alerts, scheduledPale Blue#E3F2FDInfo backgroundSuccess Green#2E7D32Completed, valve closed
+Neutral Colors
+NameHexUsed ForBackground#F5F5F0App backgroundWhite#FFFFFFCardsBorder#BDBDBDCard bordersText Primary#1C1C1CMain textText Secondary#616161Subtext, labelsText Hint#9E9E9EPlaceholder, hints
+Earth / Soil Tones (unique to Bhoomi)
+NameHexUsed ForSoil Brown#5D4037Soil related cardsPale Soil#EFEBE9Soil data backgroundWheat Gold#F9A825Wheat crop colorSky Blue#0288D1Water, rain, solarSun Yellow#FDD835Solar energy, sunny
+
+Color Rules
+
+Green = good moisture, valve on, healthy crop, completed
+Amber = low moisture, warning, pending irrigation
+Red = critical moisture, fault, urgent action needed
+Blue = info, rain forecast, scheduled task, water data
+Brown = soil data, NPK, fertigation
+Yellow = solar energy, sunny weather
+White cards on #F5F5F0 background throughout
+
+
+Updated Replit Prompt Addition
+Add this to your Replit prompt at the top:
+App name: Bhoomi (भूमी)
+Tagline: भूमीचं स्मार्ट सिंचन — Smart Irrigation for Every Farm
+
+Color Palette:
+Primary Green: #1B5E20
+Medium Green: #2E7D32
+Light Green: #4CAF50
+Pale Green: #E8F5E9
+Warning Amber: #FF8F00
+Pale Amber: #FFF8E1
+Danger Red: #C62828
+Pale Red: #FFEBEE
+Info Blue: #1565C0
+Pale Blue: #E3F2FD
+Background: #F5F5F0
+White: #FFFFFF
+Border: #BDBDBD
+Text Primary: #1C1C1C
+Text Secondary: #616161
+Soil Brown: #5D4037
+Pale Soil: #EFEBE9
+Wheat Gold: #F9A825
+Sky Blue: #0288D1
+Sun Yellow: #FDD835
+
+Shall I now give you the complete updated Replit prompt with Bhoomi name and this full color palette included?

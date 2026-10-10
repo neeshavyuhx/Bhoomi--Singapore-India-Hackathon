@@ -1,0 +1,98 @@
+First explore the project structure:
+- Find where icons are being imported/used throughout the app
+- Find package.json to see which icon library is installed
+- Find ScreenHeader component
+- Find the bottom tab navigator configuration
+- Check if there is any icon component being used (like Ionicons, MaterialIcons, 
+  FontAwesome, lucide-react-native, etc.)
+
+I have TWO problems to fix:
+
+═══════════════════════════════════
+PROBLEM 1 — ICONS NOT SHOWING ON MOBILE DEVICE
+═══════════════════════════════════
+
+On the actual Android device, all icons appear as empty boxes (□) instead 
+of the actual icon symbols. This affects:
+- Bottom tab bar icons (Home, Zones, Analytics, AI, Settings)
+- Icons inside the app (irrigation droplet, bell/alert, robot/AI icon, etc.)
+- Back arrow icon on AI screen header
+- Quick action button icons
+
+DIAGNOSIS STEPS:
+1. Check which icon library is being used (Ionicons? MaterialIcons? lucide?)
+2. Check if the font/icon font is properly loaded before the app renders
+3. Check if useFonts or Font.loadAsync is being called for the icon fonts
+4. Check if AppLoading or SplashScreen.preventAutoHideAsync is used to wait 
+   for fonts to load
+
+COMMON FIX — add this to the root App.js or _layout.tsx:
+  import * as Font from 'expo-font'
+  import { Ionicons } from '@expo/vector-icons'
+  
+  // Inside component, before rendering:
+  const [fontsLoaded] = useFonts({
+    ...Ionicons.font,
+    // add other icon fonts if used
+  })
+  
+  if (!fontsLoaded) return null
+
+If using expo-router (_layout.tsx), use this pattern:
+  import { useFonts } from 'expo-font'
+  import * as SplashScreen from 'expo-splash-screen'
+  
+  SplashScreen.preventAutoHideAsync()
+  
+  export default function RootLayout() {
+    const [loaded] = useFonts({
+      ...Ionicons.font,
+    })
+    
+    useEffect(() => {
+      if (loaded) SplashScreen.hideAsync()
+    }, [loaded])
+    
+    if (!loaded) return null
+    
+    return ( ... rest of app ... )
+  }
+
+Make sure ALL icon fonts used anywhere in the app are included in the 
+useFonts object — check every screen for which icon sets are imported.
+
+═══════════════════════════════════
+PROBLEM 2 — REPLIT WEB PREVIEW: SHOW MOBILE-STYLE STATUS BAR
+═══════════════════════════════════
+
+In the Replit web preview/output, the app should look like a real mobile phone with:
+- A visible status bar at the top showing time, battery, signal icons
+  (like a real phone shows 12:15, battery %, wifi signal)
+- The app content should start below this status bar
+
+To simulate this in web preview:
+- In the root layout or App.js, detect if platform is web
+- If web, add a fake status bar div/view at the very top with:
+  * Dark or matching background color (same as app header color: dark green)
+  * Show current time (use JavaScript new Date())
+  * Show battery/wifi icons or simple placeholder text
+  * Height of about 24-28px
+  * White text color
+  * This should appear above everything else on web only
+
+Example for web status bar:
+  import { Platform } from 'react-native'
+  
+  // If Platform.OS === 'web', render a View at top with:
+  // backgroundColor: '#1a3a2a' (dark green matching app)
+  // paddingHorizontal: 16, height: 28
+  // flexDirection: 'row', justifyContent: 'space-between'
+  // Show: left side = current time, right side = "WiFi 88%"
+
+This fake status bar should ONLY show on web (Platform.OS === 'web')
+On real mobile device, the actual device status bar handles this.
+
+═══════════════════════════════════
+
+Show me which files you will edit for EACH problem before making any changes.
+Do Problem 1 first, then Problem 2.

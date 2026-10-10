@@ -1,0 +1,48 @@
+First explore the project structure carefully:
+- Find the root layout file (App.js / App.tsx / _layout.tsx)
+- Find ScreenHeader component
+- Find the tab navigator configuration
+- Check how StatusBar is currently being handled
+
+THE PROBLEM:
+On the actual mobile device (not web preview), the top status bar area 
+(showing time like 9:41, battery icon, signal bars) is NOT visible or the 
+app content is overlapping it. 
+
+I want the status bar to be clearly visible on ALL screens throughout the app,
+exactly like in the reference image where "9:41" and battery icon show at the top
+with the app content starting below it.
+
+MAKE THESE FIXES:
+
+FIX 1 - Add StatusBar component at root level:
+In the root App.js or _layout.tsx, add:
+  import { StatusBar } from 'expo-status-bar'
+  <StatusBar style="light" backgroundColor="transparent" translucent={false} />
+Place this inside the SafeAreaProvider but outside the navigation container.
+
+FIX 2 - Fix ScreenHeader to respect top safe area on MOBILE (not just web):
+In ScreenHeader component:
+  import { useSafeAreaInsets } from 'react-native-safe-area-context'
+  const insets = useSafeAreaInsets()
+  
+  Apply paddingTop: insets.top to the header container style
+  This ensures header starts BELOW the status bar on all devices
+  Do NOT hardcode any pixel values — use insets.top dynamically
+
+FIX 3 - For HomeScreen specifically:
+  The home screen header (green area with "नमस्कार, रमेश") must also have 
+  paddingTop: insets.top so it sits below the device status bar
+  The status bar text (time, battery) should be visible ABOVE the green header
+
+FIX 4 - Make StatusBar light colored throughout:
+  Since most screens have a dark green header, set StatusBar content to light 
+  (white time and battery icons) so it's visible against the green background
+
+TARGET RESULT:
+- Every screen should show the device status bar (time + battery + signal) at top
+- App header content should start BELOW the status bar — no overlapping
+- This should work on both Android and iOS devices
+- Web preview behavior should not be affected
+
+Show me exactly which files and lines you will change before editing.
